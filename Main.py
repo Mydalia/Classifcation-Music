@@ -4,6 +4,7 @@ import pandas as pd
 import csv
 import sklearn
 from IPython.display import display
+import pandas as pd 
 from sklearn.utils import Bunch
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -29,25 +30,25 @@ msd = load_spotify_dataset()
 X = msd.data
 y = msd.target
 
-X_train, X_test, y_train, y_test = train_test_split(X[:,[2,8]], y, test_size=0.80)
+#X_train, X_test, y_train, y_test = train_test_split(X[:,[2,4,13,14,15,16,17,18,19,20,21,22,23]], y, test_size=0.33)
 
-print("X_train shape: {}".format(X_train.shape))
-print("y_train shape: {}".format(y_train.shape))
-print("X_test shape: {}".format(X_test.shape))
-print("y_test shape: {}".format(y_test.shape))
-print(X)
+#print("X_train shape: {}".format(X_train.shape))
+#print("y_train shape: {}".format(y_train.shape))
+#print("X_test shape: {}".format(X_test.shape))
+#print("y_test shape: {}".format(y_test.shape))
+#print(X)
 print(y)
 
 clf_lr = LogisticRegression(solver='lbfgs') # clf = classifier lr = logistic regression
 
-clf_lr.fit(X_train, y_train) 
+#clf_lr.fit(X_train, y_train) 
 
-print("intercept: {}".format(clf_lr.intercept_))
-print("weights:   {}".format(clf_lr.coef_))
+#print("intercept: {}".format(clf_lr.intercept_))
+#print("weights:   {}".format(clf_lr.coef_))
 
-t = X_test[:1,:] # build array only containing the first example from test using slicing
-pred = clf_lr.predict(t) # predict() requires n-dimensional array
-pred_pr = clf_lr.predict_proba(t) 
+#t = X_test[:1,:] # build array only containing the first example from test using slicing
+#pred = clf_lr.predict(t) # predict() requires n-dimensional array
+#pred_pr = clf_lr.predict_proba(t) 
 
 t_pred = pred[0]
 t_pred_pr = pred_pr[0]
