@@ -1,54 +1,39 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import csv
 import sklearn
-from IPython.display import display
 import pandas as pd 
-from sklearn.utils import Bunch
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
-def load_spotify_dataset():
-    with open(r'./Ressources/spotify_genre_final.csv') as csv_file:
-        data_reader = csv.reader(csv_file)
-        feature_names = next(data_reader)[:-1]
-        data = []
-        target = []
-        for row in data_reader:
-            features = row[:-1]
-            label = row[-1]
-            data.append(features)
-            target.append(label)
-        
-        data = np.array(data)
-        target = np.array(target)
-    return Bunch(data=data, target=target, feature_names=feature_names)
+tracks = pd.read_excel("./Ressources/spotify_genre_final.xlsx")
 
-msd = load_spotify_dataset()
+print(tracks.head())
+print(tracks.columns)
 
-X = msd.data
-y = msd.target
+y = tracks['Genre'].values
+X = tracks.drop('Genre', axis=1).values
 
-#X_train, X_test, y_train, y_test = train_test_split(X[:,[2,4,13,14,15,16,17,18,19,20,21,22,23]], y, test_size=0.33)
-
-#print("X_train shape: {}".format(X_train.shape))
-#print("y_train shape: {}".format(y_train.shape))
-#print("X_test shape: {}".format(X_test.shape))
-#print("y_test shape: {}".format(y_test.shape))
-#print(X)
 print(y)
+print(X)
 
-clf_lr = LogisticRegression(solver='lbfgs') # clf = classifier lr = logistic regression
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0, test_size = 0.2)
 
-#clf_lr.fit(X_train, y_train) 
+print("X_train shape: {}".format(X_train.shape))
+print("y_train shape: {}".format(y_train.shape))
+print("X_test shape: {}".format(X_test.shape))
+print("y_test shape: {}".format(y_test.shape))
 
-#print("intercept: {}".format(clf_lr.intercept_))
-#print("weights:   {}".format(clf_lr.coef_))
+clf_lr = LogisticRegression(solver='lbfgs')
 
-#t = X_test[:1,:] # build array only containing the first example from test using slicing
-#pred = clf_lr.predict(t) # predict() requires n-dimensional array
-#pred_pr = clf_lr.predict_proba(t) 
+clf_lr.fit(X_train, y_train) 
+
+print("intercept: {}".format(clf_lr.intercept_))
+print("weights:   {}".format(clf_lr.coef_))
+
+t = X_test[:1,:] # build array only containing the first example from test using slicing
+pred = clf_lr.predict(t) # predict() requires n-dimensional array
+pred_pr = clf_lr.predict_proba(t) 
 
 t_pred = pred[0]
 t_pred_pr = pred_pr[0]
