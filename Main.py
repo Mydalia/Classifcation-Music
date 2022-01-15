@@ -47,3 +47,5 @@ test_score = clf_lr.score(X_test,y_test)
 
 print("Training set score: {:.2f} ".format(train_score))
 print("Test set score: {:.2f} ".format(test_score))
+
+#https://www.kaggle.com/iqbalbasyar/spotify-genre-classification
