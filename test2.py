@@ -1,15 +1,18 @@
-import pandas as pd 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline 
+#Import models
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
+#Model evaluation
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import RandomizedSearchCV, GridSearchCV
+from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import precision_score, recall_score,f1_score
+from sklearn.metrics import plot_roc_curve
 
-tracks = pd.read_excel("./Ressources/spotify_genre_final.xlsx")
-
-print(tracks.head())
-print(tracks.columns)
-
-y = tracks['Genre'].values
-X = tracks.drop('Genre', axis=1).values
-
-print(y)
-print(X)
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0, test_size = 0.2)
+data=pd.read_csv("./Ressources/spotify_genre_final.csv")
+data.head()
